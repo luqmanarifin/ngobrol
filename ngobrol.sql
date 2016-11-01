@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 01, 2016 at 08:24 PM
+-- Generation Time: Nov 02, 2016 at 12:36 AM
 -- Server version: 5.7.16-0ubuntu0.16.04.1
 -- PHP Version: 7.0.8-0ubuntu0.16.04.3
 
@@ -87,16 +87,18 @@ INSERT INTO `membership` (`id`, `group_id`, `username`) VALUES
 
 CREATE TABLE `user` (
   `username` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL
+  `password` varchar(100) NOT NULL,
+  `token` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`username`, `password`) VALUES
-('husni', 'husnimun'),
-('luqman', 'kentang');
+INSERT INTO `user` (`username`, `password`, `token`) VALUES
+('feryandi', 'fery', NULL),
+('husni', 'husnimun', NULL),
+('luqman', 'kentang', NULL);
 
 --
 -- Indexes for dumped tables
