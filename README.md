@@ -1,5 +1,5 @@
 # ngobrol
-A repository of cool messaging app, including server and client source code. Using RabbitMQ technology at server-side. 
+A repository of cool messaging app, including server and client source code. Using RabbitMQ technology at server-side.
 
 # message structure
 
@@ -46,7 +46,8 @@ A repository of cool messaging app, including server and client source code. Usi
 {
     method: "add_friend"
     username_from:
-    username_to 
+    username_to:
+    token:
 }
 ```
 
@@ -64,6 +65,7 @@ A repository of cool messaging app, including server and client source code. Usi
 {
     method: "get_friend"
     username:
+    token:
 }
 ```
 
@@ -71,7 +73,7 @@ A repository of cool messaging app, including server and client source code. Usi
 ```
 {
     method: get_friend_reply
-    status: 
+    status:
     usernames: list username
 }
 ```
@@ -82,6 +84,7 @@ A repository of cool messaging app, including server and client source code. Usi
     method: "create_group"
     username:
     group_name:
+    token:
 }
 ```
 
@@ -99,6 +102,7 @@ A repository of cool messaging app, including server and client source code. Usi
 {
     method: "get_group"
     username:
+    token:
 }
 ```
 
@@ -119,21 +123,26 @@ A repository of cool messaging app, including server and client source code. Usi
     username_adder:
     username_to_add:
     group_id:
+    token:
 }
 ```
 
 ## add member to group reply
+```
 {
     method: "add_member_to_group_reply"
     status:
-    description: 
+    description:
 }
+```
 
 ## quit from group
 ```
 {
     method: quit_from_group
+    username:
     group_id:
+    token:
 }
 ```
 
@@ -153,6 +162,7 @@ A repository of cool messaging app, including server and client source code. Usi
     username_to:
     username_from:
     message:
+    token:
 }
 ```
 
@@ -172,6 +182,7 @@ A repository of cool messaging app, including server and client source code. Usi
     username_from:
     group_id_to:
     message:
+    token:
 }
 ```
 
@@ -183,4 +194,3 @@ A repository of cool messaging app, including server and client source code. Usi
     description
 }
 ```
-
