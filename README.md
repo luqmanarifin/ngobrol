@@ -74,6 +74,7 @@ A repository of cool messaging app, including server and client source code. Usi
 {
     method: get_friend_reply
     status:
+    description:
     usernames: list username
 }
 ```
