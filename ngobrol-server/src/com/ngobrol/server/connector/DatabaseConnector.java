@@ -9,12 +9,12 @@ import java.sql.*;
 public class DatabaseConnector {
 
   // JDBC driver name and database URL
-  static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-  static final String DB_URL = "jdbc:mysql://localhost/ngobrol";
+  private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+  private static final String DB_URL = "jdbc:mysql://localhost/ngobrol";
 
   //  Database credentials
-  static final String USER = "ngobrol";
-  static final String PASS = "password";
+  private static final String USER = "ngobrol";
+  private static final String PASS = "password";
 
   private static Connection conn = null;
   private static Statement stmt = null;
@@ -55,6 +55,7 @@ public class DatabaseConnector {
   }
 
   public ResultSet executeQuery(String query) {
+    System.out.println(query);
     try {
       return stmt.executeQuery(query);
     } catch (SQLException e) {

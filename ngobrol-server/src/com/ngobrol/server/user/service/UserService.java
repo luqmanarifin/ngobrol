@@ -21,7 +21,7 @@ public class UserService {
 
   }
 
-  public void sendToGroup(User sender, int groupId, String message) {
+  public void sendToGroup(User sender, long groupId, String message) {
 
   }
 
