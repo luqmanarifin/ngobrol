@@ -2,7 +2,9 @@ package com.ngobrol.server.user.service;
 
 import com.ngobrol.server.common.SessionIdentifierGenerator;
 import com.ngobrol.server.common.Validator;
+import com.ngobrol.server.friend.dao.FriendDao;
 import com.ngobrol.server.group.dao.GroupDao;
+import com.ngobrol.server.membership.dao.MembershipDao;
 import com.ngobrol.server.user.User;
 import com.ngobrol.server.user.dao.UserDao;
 import com.ngobrol.server.user.socket.UserSocket;
@@ -16,12 +18,16 @@ public class UserService {
   UserSocket userSocket;
   Validator validator;
   GroupDao groupDao;
+  FriendDao friendDao;
+  MembershipDao membershipDao;
 
   public UserService() {
     userDao = new UserDao();
     userSocket = new UserSocket();
     validator = new Validator();
     groupDao = new GroupDao();
+    friendDao = new FriendDao();
+    membershipDao = new MembershipDao();
   }
 
   public void registerUser(String queueName, User user) {
@@ -61,6 +67,10 @@ public class UserService {
       userSocket.sendToClient(sender, "error", "Destination user not exists.");
       return;
     }
+    if (!friendDao.isFriend(sender, destination)) {
+      userSocket.sendToClient(sender, "error", "Kamu bukan teman " + destination.getUsername() + ". Jadilah teman dahulu baru ngechat.");
+      return;
+    }
     userSocket.sendMessageToClient(sender, destination, message);
     userSocket.sendToClient(sender, "ok", "Message berhasil dikirim");
   }
@@ -72,6 +82,10 @@ public class UserService {
     }
     if (!groupDao.isGroupExists(groupId)) {
       userSocket.sendToGroup(sender, "error", "Group tidak ada.");
+      return;
+    }
+    if (!membershipDao.isMember(sender, groupId)) {
+      userSocket.sendToGroup(sender, "error", "Kamu bukan anggota grup ini.");
       return;
     }
     userSocket.sendMessageToGroup(sender, groupDao.getGroup(groupId), message);
