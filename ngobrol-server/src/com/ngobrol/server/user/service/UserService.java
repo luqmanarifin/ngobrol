@@ -30,6 +30,10 @@ public class UserService {
       return;
     }
     userDao.addUser(user);
+
+    // bikin queue baru
+    userSocket.createUserQueue(user.getUsername());
+
     userSocket.registerUser(queueName, "ok", "Akun berhasil dibuat.");
   }
 

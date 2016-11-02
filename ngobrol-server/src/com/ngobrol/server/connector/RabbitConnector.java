@@ -65,4 +65,36 @@ public class RabbitConnector {
     }
   }
 
+  public void createGroupExchange(long groupId) {
+    try {
+      channel.exchangeDeclare(prefix + groupId, "fanout");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void createUserQueue(String username) {
+    try {
+      channel.queueDeclare(prefix + username, true, false, false, null);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void bind(String username, long groupId) {
+    try {
+      channel.queueBind(prefix + username, prefix + groupId, "");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void unbind(String username, long groupId) {
+    try {
+      channel.queueUnbind(prefix + username, prefix + groupId, "");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
 }

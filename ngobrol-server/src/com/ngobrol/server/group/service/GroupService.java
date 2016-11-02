@@ -35,7 +35,8 @@ public class GroupService {
     Group group = groupDao.getLastGroup(user, groupName);
     membershipDao.addToGroup(user, group.getId());
 
-    // TODO : bikin exchange baru untuk group yg udah dibuah
+    // bikin exchange baru untuk group yg udah dibuat
+    groupSocket.createGroupExchange(group.getId());
 
     groupSocket.createGroup(user, "ok", "Group berhasil ditambahkan.");
   }

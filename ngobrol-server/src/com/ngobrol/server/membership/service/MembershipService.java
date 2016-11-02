@@ -7,6 +7,7 @@ import com.ngobrol.server.membership.dao.MembershipDao;
 import com.ngobrol.server.membership.socket.MembershipSocket;
 import com.ngobrol.server.user.User;
 import com.ngobrol.server.user.dao.UserDao;
+import com.ngobrol.server.user.socket.UserSocket;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ public class MembershipService {
   MembershipSocket membershipSocket;
   GroupDao groupDao;
   UserDao userDao;
+  UserSocket userSocket;
 
   public MembershipService() {
     validator = new Validator();
@@ -28,6 +30,7 @@ public class MembershipService {
     membershipSocket = new MembershipSocket();
     groupDao = new GroupDao();
     userDao = new UserDao();
+    userSocket = new UserSocket();
   }
 
   public void getGroups(User user) {
@@ -48,6 +51,10 @@ public class MembershipService {
       membershipSocket.addMemberToGroup(adder, "error", "Invalid token.");
       return;
     }
+    if (!groupDao.isGroupExists(groupId)) {
+      membershipSocket.addMemberToGroup(adder, "error", "Group tidak ditemukan.");
+      return;
+    }
     Group group = groupDao.getGroup(groupId);
     if (!group.getAdminUsername().equals(adder.getUsername())) {
       membershipSocket.addMemberToGroup(adder, "error", "Hanya admin yang boleh menambahkan anggota grup ini.");
@@ -63,8 +70,11 @@ public class MembershipService {
     }
     membershipDao.addToGroup(toAdd, groupId);
 
-    // TODO: bind queue user toAdd dengan exchange groupId
-    // TODO: notif all member of group bahwa ada org masuk
+    // bind queue user toAdd dengan exchange groupId
+    membershipSocket.bind(toAdd.getUsername(), groupId);
+
+    // notif all member of group bahwa ada org masuk
+    userSocket.sendMessageToGroup(new User("admin", "", ""), group, toAdd.getUsername() + " telah masuk ke dalam grup.");
 
     membershipSocket.addMemberToGroup(adder, "ok", toAdd.getUsername() + " berhasil ditambahkan.");
   }
@@ -74,14 +84,22 @@ public class MembershipService {
       membershipSocket.quitFromGroup(user, "error", "Invalid token.");
       return;
     }
+    if (!groupDao.isGroupExists(groupId)) {
+      membershipSocket.quitFromGroup(user, "error", "Group tidak ditemukan.");
+      return;
+    }
     if (!membershipDao.isMember(user, groupId)) {
       membershipSocket.quitFromGroup(user, "error", user.getUsername() + " bukan member grup. Ngapain keluar?");
       return;
     }
     membershipDao.deleteFromGroup(user, groupId);
 
-    // TODO: unbind queue user dengan exchange groupId
-    // TODO: notif all member of group bahwa ada org keluar
+    // unbind queue user dengan exchange groupId
+    membershipSocket.unbind(user.getUsername(), groupId);
+
+    Group group = groupDao.getGroup(groupId);
+    // notif all member of group bahwa ada org keluar
+    userSocket.sendMessageToGroup(new User("admin", "", ""), group, user.getUsername() + " telah keluar dari grup.");
 
     membershipSocket.quitFromGroup(user, "ok", user.getUsername() + " berhasil keluar grup");
   }
