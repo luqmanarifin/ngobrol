@@ -158,7 +158,7 @@ A repository of cool messaging app, including server and client source code. Usi
 }
 ```
 
-## send client
+## send client (sender -> server)
 ```
 {
     method: send_client
@@ -169,7 +169,7 @@ A repository of cool messaging app, including server and client source code. Usi
 }
 ```
 
-## send client
+## send client (server -> sender)
 ```
 {
     method: send_client_reply
@@ -178,7 +178,16 @@ A repository of cool messaging app, including server and client source code. Usi
 }
 ```
 
-## send group
+## send client (server -> destination)
+```
+{
+  method: send_client
+  username_from:
+  message:
+}
+```
+
+## send group (sender -> server)
 ```
 {
     method: send_group
@@ -189,11 +198,22 @@ A repository of cool messaging app, including server and client source code. Usi
 }
 ```
 
-## send group reply
+## send group reply (server -> sender)
 ```
 {
     method: send_group_reply
     status:
     description
+}
+```
+
+## send group (server -> destination)
+```
+{
+    method: send_group
+    username_from:
+    group_id_to:
+    group_name_to:
+    message:
 }
 ```
