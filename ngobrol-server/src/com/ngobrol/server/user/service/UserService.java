@@ -25,6 +25,7 @@ public class UserService {
   }
 
   public void registerUser(String queueName, User user) {
+    userSocket.createQueue(queueName);
     if (userDao.isUserExists(user)) {
       userSocket.registerUser(queueName, "error", "Username telah dipakai. Silakan cari yang lain.");
       return;
@@ -38,6 +39,7 @@ public class UserService {
   }
 
   public void loginUser(String queueName, User user) {
+    userSocket.createQueue(queueName);
     if (!userDao.isUserExists(user)) {
       userSocket.loginUser(queueName, "error", "Username tidak ada.", "");
       return;

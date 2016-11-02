@@ -94,6 +94,7 @@ public class Server extends RabbitConnector {
       }
     };
     try {
+      channel.queueDeclare(QUEUE_NAME, true, false, false, null);
       channel.basicConsume(QUEUE_NAME, true, consumer);
     } catch (IOException e) {
       e.printStackTrace();

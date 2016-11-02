@@ -73,12 +73,16 @@ public class RabbitConnector {
     }
   }
 
-  public void createUserQueue(String username) {
+  public void createQueue(String queueName) {
     try {
-      channel.queueDeclare(prefix + username, true, false, false, null);
+      channel.queueDeclare(queueName, true, false, false, null);
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  public void createUserQueue(String username) {
+    createQueue(prefix + username);
   }
 
   public void bind(String username, long groupId) {
