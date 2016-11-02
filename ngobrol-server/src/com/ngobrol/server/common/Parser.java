@@ -11,10 +11,7 @@ public class Parser {
 
   private static JSONParser jsonParser = new JSONParser();
 
-  public Parser() {
-  }
-
-  public String getMethod(String json) {
+  public static String getMethod(String json) {
     try {
       JSONObject jsonObject = (JSONObject) jsonParser.parse(json);
       return (String) jsonObject.get("method");
@@ -24,7 +21,7 @@ public class Parser {
     return "";
   }
 
-  public String getUsername(String json) {
+  public static String getUsername(String json) {
     try {
       JSONObject jsonObject = (JSONObject) jsonParser.parse(json);
       return (String) jsonObject.get("username");
@@ -34,7 +31,7 @@ public class Parser {
     return "";
   }
 
-  public String getPassword(String json) {
+  public static String getPassword(String json) {
     try {
       JSONObject jsonObject = (JSONObject) jsonParser.parse(json);
       return (String) jsonObject.get("password");
@@ -44,7 +41,7 @@ public class Parser {
     return "";
   }
 
-  public String getQueueName(String json) {
+  public static String getQueueName(String json) {
     try {
       JSONObject jsonObject = (JSONObject) jsonParser.parse(json);
       return (String) jsonObject.get("queue_name");
@@ -54,7 +51,7 @@ public class Parser {
     return "";
   }
 
-  public String getUsernameFrom(String json) {
+  public static String getUsernameFrom(String json) {
     try {
       JSONObject jsonObject = (JSONObject) jsonParser.parse(json);
       return (String) jsonObject.get("username_from");
@@ -64,7 +61,7 @@ public class Parser {
     return "";
   }
 
-  public String getUsernameTo(String json) {
+  public static String getUsernameTo(String json) {
     try {
       JSONObject jsonObject = (JSONObject) jsonParser.parse(json);
       return (String) jsonObject.get("username_to");
@@ -74,7 +71,7 @@ public class Parser {
     return "";
   }
 
-  public String getToken(String json) {
+  public static String getToken(String json) {
     try {
       JSONObject jsonObject = (JSONObject) jsonParser.parse(json);
       return (String) jsonObject.get("token");
@@ -84,7 +81,7 @@ public class Parser {
     return "";
   }
 
-  public String getGroupName(String json) {
+  public static String getGroupName(String json) {
     try {
       JSONObject jsonObject = (JSONObject) jsonParser.parse(json);
       return (String) jsonObject.get("group_name");
@@ -94,7 +91,7 @@ public class Parser {
     return "";
   }
 
-  public String getUsernameAdder(String json) {
+  public static String getUsernameAdder(String json) {
     try {
       JSONObject jsonObject = (JSONObject) jsonParser.parse(json);
       return (String) jsonObject.get("username_adder");
@@ -104,7 +101,7 @@ public class Parser {
     return "";
   }
 
-  public String getUsernameToAdd(String json) {
+  public static String getUsernameToAdd(String json) {
     try {
       JSONObject jsonObject = (JSONObject) jsonParser.parse(json);
       return (String) jsonObject.get("username_to_add");
@@ -114,7 +111,7 @@ public class Parser {
     return "";
   }
 
-  public long getGroupId(String json) {
+  public static long getGroupId(String json) {
     try {
       JSONObject jsonObject = (JSONObject) jsonParser.parse(json);
       return Long.parseLong((String) jsonObject.get("group_id"));
@@ -124,7 +121,7 @@ public class Parser {
     return 0;
   }
 
-  public String getMessage(String json) {
+  public static String getMessage(String json) {
     try {
       JSONObject jsonObject = (JSONObject) jsonParser.parse(json);
       return (String) jsonObject.get("message");
@@ -134,7 +131,7 @@ public class Parser {
     return "";
   }
 
-  public long getGroupIdTo(String json) {
+  public static long getGroupIdTo(String json) {
     try {
       JSONObject jsonObject = (JSONObject) jsonParser.parse(json);
       return Long.parseLong((String) jsonObject.get("group_id_to"));
