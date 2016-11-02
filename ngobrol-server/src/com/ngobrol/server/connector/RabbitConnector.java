@@ -16,7 +16,7 @@ public class RabbitConnector {
 
   private static ConnectionFactory factory = null;
   private static Connection connection = null;
-  private static Channel channel = null;
+  protected static Channel channel = null;
 
   public RabbitConnector() {
     if (channel == null) {
