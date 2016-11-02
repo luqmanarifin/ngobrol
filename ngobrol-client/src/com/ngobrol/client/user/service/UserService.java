@@ -11,15 +11,20 @@ import java.io.IOException;
  */
 public class UserService {
   RabbitConnector connector;
+  static String queueName;
 
-  public  UserService(RabbitConnector connector) {
-    this.connector = connector;
+  public static String getQueueName() {
+    return queueName;
   }
 
-  public void register(String username, String password) throws IOException {
-    Channel channel = connector.getChannel();
-    String queueName = channel.queueDeclare().getQueue();
+  public  UserService(RabbitConnector connector) throws IOException {
+    this.connector = connector;
 
+    Channel channel = connector.getChannel();
+    this.queueName = channel.queueDeclare().getQueue();
+  }
+
+  public void register(String username, String password) {
     JSONObject registerMessage = new JSONObject();
     registerMessage.put("method", "register");
     registerMessage.put("username", username);
@@ -29,10 +34,7 @@ public class UserService {
     connector.sendMessageToServer(registerMessage.toJSONString());
   }
 
-  public void login(String username, String password) throws IOException {
-    Channel channel = connector.getChannel();
-    String queueName = channel.queueDeclare().getQueue();
-
+  public void login(String username, String password)  {
     JSONObject loginMessage = new JSONObject();
     loginMessage.put("method", "login");
     loginMessage.put("username", username);

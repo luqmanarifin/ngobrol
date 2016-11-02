@@ -8,10 +8,9 @@ public class User {
   private String password;
   private String token;
 
-  public User(String username, String password, String token) {
+  public User(String username, String password) {
     this.username = username;
     this.password = password;
-    this.token = token;
   }
 
   public String getUsername() {

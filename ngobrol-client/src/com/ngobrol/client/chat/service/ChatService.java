@@ -9,12 +9,17 @@ import org.json.simple.JSONObject;
  */
 public class ChatService {
   RabbitConnector connector;
+  User user;
+
+  public void setUser(User user) {
+    this.user = user;
+  }
 
   public ChatService(RabbitConnector connector) {
     this.connector = connector;
   }
 
-  public void sendChat(User user, String usernameTo, String message) {
+  public void sendChat(String usernameTo, String message) {
     JSONObject sendChatMessage = new JSONObject();
     sendChatMessage.put("method", "send_client");
     sendChatMessage.put("username_to", usernameTo);
