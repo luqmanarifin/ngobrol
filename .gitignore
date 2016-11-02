@@ -1,3 +1,7 @@
 ngobrol-server/out
 ngobrol-server/.idea
 ngobrol-server/lib
+
+ngobrol-client/out
+ngobrol-client/.idea
+ngobrol-client/lib
