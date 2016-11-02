@@ -64,6 +64,7 @@ public class MembershipService {
     membershipDao.addToGroup(toAdd, groupId);
 
     // TODO: bind queue user toAdd dengan exchange groupId
+    // TODO: notif all member of group bahwa ada org masuk
 
     membershipSocket.addMemberToGroup(adder, "ok", toAdd.getUsername() + " berhasil ditambahkan.");
   }
@@ -80,6 +81,7 @@ public class MembershipService {
     membershipDao.deleteFromGroup(user, groupId);
 
     // TODO: unbind queue user dengan exchange groupId
+    // TODO: notif all member of group bahwa ada org keluar
 
     membershipSocket.quitFromGroup(user, "ok", user.getUsername() + " berhasil keluar grup");
   }

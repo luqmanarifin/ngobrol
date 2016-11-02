@@ -20,16 +20,18 @@ public class UserDao extends DatabaseConnector {
   }
 
   public boolean isUserExists(User user) {
-    String query = String.format("SELECT * FROM user WHERE username='%s';", user.getUsername());
+    String query = String.format("SELECT COUNT(*) AS cnt FROM user WHERE username='%s';", user.getUsername());
     ResultSet rs = executeQuery(query);
-    boolean ada = false;
+    int ada = 0;
     try {
-      ada = rs.next();
+      if (rs.next()) {
+        ada = rs.getInt("cnt");
+      }
       rs.close();
     } catch (SQLException e) {
       e.printStackTrace();
     }
-    return ada;
+    return ada > 0;
   }
 
   public User getByUsername(String username) {
@@ -44,6 +46,11 @@ public class UserDao extends DatabaseConnector {
       e.printStackTrace();
     }
     return new User("", "", "");
+  }
+
+  public void editToken(String username, String token) {
+    String query = String.format("UPDATE user SET token='%s' WHERE username='%s';", token, username);
+    executeUpdate(query);
   }
 
 

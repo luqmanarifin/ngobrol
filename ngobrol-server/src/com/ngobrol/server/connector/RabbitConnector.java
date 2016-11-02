@@ -57,4 +57,12 @@ public class RabbitConnector {
     }
   }
 
+  public void sendToQueue(String queueName, String message) {
+    try {
+      channel.basicPublish("", queueName, null, message.getBytes());
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
 }

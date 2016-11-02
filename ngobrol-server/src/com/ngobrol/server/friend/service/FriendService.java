@@ -40,6 +40,10 @@ public class FriendService {
       friendSocket.addFriend(adder, "error", "Username tidak ada.");
       return;
     }
+    if (friendDao.isFriend(adder, toAdd)) {
+      friendSocket.addFriend(adder, "error", "Kamu sudah menambahkan " + toAdd.getUsername() + " sebagai teman.");
+      return;
+    }
     friendDao.addFriend(adder, toAdd);
     friendDao.addFriend(toAdd, adder);
     friendSocket.addFriend(adder, "ok", "Teman berhasil ditambahkan.");

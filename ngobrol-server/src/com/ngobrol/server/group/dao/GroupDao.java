@@ -39,7 +39,7 @@ public class GroupDao extends DatabaseConnector {
   }
 
   public Group getGroup(long groupId) {
-    String query = String.format("SELECT * FROM `group` WHERE id=%d;" + groupId);
+    String query = String.format("SELECT * FROM `group` WHERE id=%d;", groupId);
     ResultSet rs = executeQuery(query);
 
     try {
@@ -51,6 +51,21 @@ public class GroupDao extends DatabaseConnector {
       e.printStackTrace();
     }
     return new Group(0, "", "");
+  }
+
+  public boolean isGroupExists(long groupId) {
+    String query = String.format("SELECT COUNT(*) as cnt FROM `group` WHERE id=%d", groupId);
+    ResultSet rs = executeQuery(query);
+
+    int ada = 0;
+    try {
+      if (rs.next()) {
+        ada = rs.getInt("cnt");
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return ada > 0;
   }
 
 }

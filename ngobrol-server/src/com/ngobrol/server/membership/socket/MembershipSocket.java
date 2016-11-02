@@ -38,7 +38,11 @@ public class MembershipSocket extends RabbitConnector {
   }
 
   public void quitFromGroup(User user, String status, String description) {
-
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.put("method", "quit_from_group_reply");
+    jsonObject.put("status", status);
+    jsonObject.put("description", description);
+    sendToClient(user.getUsername(), jsonObject.toJSONString());
   }
 
 }

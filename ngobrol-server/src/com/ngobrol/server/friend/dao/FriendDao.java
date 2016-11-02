@@ -17,18 +17,20 @@ public class FriendDao extends DatabaseConnector {
   }
 
   public boolean isFriend(User a, User b) {
-    String query = String.format("SELECT * FROM friend WHERE username='%s' AND friend_username='%s';",
+    String query = String.format("SELECT COUNT(*) as cnt FROM friend WHERE username='%s' AND friend_username='%s';",
       a.getUsername(), b.getUsername());
 
     ResultSet rs = executeQuery(query);
+    int ada = 0;
     try {
-      boolean ada = rs.next();
+      if (rs.next()) {
+        ada = rs.getInt("cnt");
+      }
       rs.close();
-      return ada;
     } catch (SQLException e) {
       e.printStackTrace();
     }
-    return false;
+    return ada > 0;
   }
 
   public void addFriend(User a, User b) {

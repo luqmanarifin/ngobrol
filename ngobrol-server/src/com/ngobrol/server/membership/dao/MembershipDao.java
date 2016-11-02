@@ -45,17 +45,19 @@ public class MembershipDao extends DatabaseConnector {
   }
 
   public boolean isMember(User user, long groupId) {
-    String query = String.format("SELECT * FROM `membership` WHERE username='%s' AND group_id=%d;",
+    String query = String.format("SELECT COUNT(*) as cnt FROM `membership` WHERE username='%s' AND group_id=%d;",
       user.getUsername(), groupId);
     ResultSet rs = executeQuery(query);
-    boolean ada = false;
+    int ada = 0;
     try {
-      ada = rs.next();
+      if (rs.next()) {
+        ada = rs.getInt("cnt");
+      }
       rs.close();
     } catch (SQLException e) {
       e.printStackTrace();
     }
-    return ada;
+    return ada > 0;
   }
 
 }
