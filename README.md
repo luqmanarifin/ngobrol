@@ -9,6 +9,7 @@ A repository of cool messaging app, including server and client source code. Usi
     method: "register",
     username:
     password:
+    queue_name:
 }
 ```
 
@@ -28,6 +29,7 @@ A repository of cool messaging app, including server and client source code. Usi
     method: "login"
     username:
     password:
+    queue_name
 }
 ```
 
