@@ -76,8 +76,9 @@ public class RabbitConnector {
   public void createQueue(String queueName) {
     try {
       channel.queueDeclare(queueName, true, false, false, null);
+      System.out.println("Queue " + queueName + " berhasil dibuat.");
     } catch (IOException e) {
-      e.printStackTrace();
+      System.out.println("Queue " + queueName + " sudah ada.");
     }
   }
 

@@ -1,7 +1,6 @@
 package com.ngobrol.server.membership.dao;
 
 import com.ngobrol.server.connector.DatabaseConnector;
-import com.ngobrol.server.group.Group;
 import com.ngobrol.server.user.User;
 
 import java.sql.ResultSet;

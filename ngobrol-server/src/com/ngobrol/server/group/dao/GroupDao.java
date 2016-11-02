@@ -6,8 +6,6 @@ import com.ngobrol.server.user.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by luqmanarifin on 01/11/16.

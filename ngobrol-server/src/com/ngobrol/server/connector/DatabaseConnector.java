@@ -1,6 +1,10 @@
 package com.ngobrol.server.connector;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * Created by luqmanarifin on 01/11/16.

@@ -114,7 +114,7 @@ public class Parser {
   public static long getGroupId(String json) {
     try {
       JSONObject jsonObject = (JSONObject) jsonParser.parse(json);
-      return Long.parseLong((String) jsonObject.get("group_id"));
+      return (long) jsonObject.get("group_id");
     } catch (ParseException e) {
       e.printStackTrace();
     }
@@ -134,7 +134,7 @@ public class Parser {
   public static long getGroupIdTo(String json) {
     try {
       JSONObject jsonObject = (JSONObject) jsonParser.parse(json);
-      return Long.parseLong((String) jsonObject.get("group_id_to"));
+      return (long) jsonObject.get("group_id_to");
     } catch (ParseException e) {
       e.printStackTrace();
     }

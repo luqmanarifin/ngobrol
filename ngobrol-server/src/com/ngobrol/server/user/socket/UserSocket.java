@@ -51,7 +51,7 @@ public class UserSocket extends RabbitConnector {
     jsonObject.put("method", "send_client");
     jsonObject.put("username_from", sender.getUsername());
     jsonObject.put("message", message);
-    sendToClient(sender.getUsername(), jsonObject.toJSONString());
+    sendToClient(destination.getUsername(), jsonObject.toJSONString());
   }
 
   public void sendMessageToGroup(User sender, Group destination, String message) {

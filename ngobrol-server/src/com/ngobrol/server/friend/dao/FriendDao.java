@@ -46,7 +46,7 @@ public class FriendDao extends DatabaseConnector {
     List<User> friends = new ArrayList<>();
     try {
       while (rs.next()) {
-        friends.add(new User(rs.getString("username"), rs.getString("password"), rs.getString("token")));
+        friends.add(new User(rs.getString("friend_username"), "", ""));
       }
       rs.close();
     } catch (SQLException e) {

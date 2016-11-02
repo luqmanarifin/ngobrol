@@ -7,8 +7,6 @@ import com.ngobrol.server.group.socket.GroupSocket;
 import com.ngobrol.server.membership.dao.MembershipDao;
 import com.ngobrol.server.user.User;
 
-import java.util.ArrayList;
-
 /**
  * Created by luqmanarifin on 01/11/16.
  */
@@ -34,6 +32,7 @@ public class GroupService {
     groupDao.addGroup(user, groupName);
     Group group = groupDao.getLastGroup(user, groupName);
     membershipDao.addToGroup(user, group.getId());
+    groupSocket.bind(user.getUsername(), group.getId());
 
     // bikin exchange baru untuk group yg udah dibuat
     groupSocket.createGroupExchange(group.getId());

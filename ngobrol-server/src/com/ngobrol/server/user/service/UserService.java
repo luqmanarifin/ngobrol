@@ -44,6 +44,7 @@ public class UserService {
   }
 
   public void loginUser(String queueName, User user) {
+    userSocket.createUserQueue(user.getUsername());
     if (!userDao.isUserExists(user)) {
       userSocket.loginUser(queueName, "error", "Username tidak ada.", "");
       return;
