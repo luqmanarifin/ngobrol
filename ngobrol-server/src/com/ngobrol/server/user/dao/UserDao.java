@@ -5,6 +5,8 @@ import com.ngobrol.server.user.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by luqmanarifin on 01/11/16.
@@ -32,6 +34,23 @@ public class UserDao extends DatabaseConnector {
       e.printStackTrace();
     }
     return ada > 0;
+  }
+
+  public List<User> getUsers() {
+    String query = String.format("SELECT * FROM user;");
+    ResultSet rs = executeQuery(query);
+
+    List<User> users = new ArrayList<>();
+    try {
+      while (rs.next()) {
+        User user = new User(rs.getString("username"), rs.getString("password"), rs.getString("token"));
+        users.add(user);
+      }
+      rs.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return users;
   }
 
   public User getByUsername(String username) {

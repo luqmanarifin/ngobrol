@@ -3,9 +3,12 @@ package com.ngobrol.server.group.dao;
 import com.ngobrol.server.connector.DatabaseConnector;
 import com.ngobrol.server.group.Group;
 import com.ngobrol.server.user.User;
+import com.sun.corba.se.spi.orbutil.fsm.Guard;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by luqmanarifin on 01/11/16.
@@ -34,6 +37,23 @@ public class GroupDao extends DatabaseConnector {
       e.printStackTrace();
     }
     return new Group(0, "", "");
+  }
+
+  public List<Group> getGroups() {
+    String query = String.format("SELECT * FROM `group`;");
+    ResultSet rs = executeQuery(query);
+    List<Group> groups = new ArrayList<>();
+
+    try {
+      while (rs.next()) {
+        Group group = new Group(rs.getLong("id"), rs.getString("name"), rs.getString("admin_username"));
+        groups.add(group);
+      }
+      rs.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return groups;
   }
 
   public Group getGroup(long groupId) {

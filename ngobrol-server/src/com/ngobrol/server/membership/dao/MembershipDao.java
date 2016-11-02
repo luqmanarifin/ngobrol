@@ -1,6 +1,7 @@
 package com.ngobrol.server.membership.dao;
 
 import com.ngobrol.server.connector.DatabaseConnector;
+import com.ngobrol.server.membership.Membership;
 import com.ngobrol.server.user.User;
 
 import java.sql.ResultSet;
@@ -26,6 +27,23 @@ public class MembershipDao extends DatabaseConnector {
     String query = String.format("DELETE FROM membership WHERE group_id=%d AND username='%s';",
       (int) groupId, user.getUsername());
     executeUpdate(query);
+  }
+
+  public List<Membership> getMemberships() {
+    String query = String.format("SELECT * FROM `membership`;");
+    ResultSet rs = executeQuery(query);
+
+    List<Membership> memberships = new ArrayList<>();
+    try {
+      while (rs.next()) {
+        Membership membership = new Membership(rs.getLong("id"), rs.getLong("group_id"), rs.getString("username"));
+        memberships.add(membership);
+      }
+      rs.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return memberships;
   }
 
   public List<Long> getMembership(User user) {
