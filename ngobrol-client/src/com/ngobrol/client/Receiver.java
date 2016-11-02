@@ -46,7 +46,7 @@ public class Receiver {
                                        AMQP.BasicProperties properties, byte[] body) throws IOException {
               String message = new String(body, "UTF-8");
               String description = Parser.getDescription(message);
-              System.out.println(message);
+//              System.out.println(message);
               if (description != null) {
                 System.out.println(description);
               }
@@ -98,10 +98,10 @@ public class Receiver {
       System.out.println(Parser.getUsernameFrom(message) + " > " + Parser.getMessage(message));
     }
 
-//    if (method.equals("send_group")) {
-//      System.out.println("Pesan dari grup " + Parser.getGroupName(message));
-//      System.out.println(Parser.getUsernameFrom(message) + " > " + Parser.getMessage(message));
-//    }
+    if (method.equals("send_group")) {
+      System.out.println("Pesan dari grup " + Parser.getGroupNameTo(message));
+      System.out.println(Parser.getUsernameFrom(message) + " > " + Parser.getMessage(message));
+    }
   }
 
   public void run() {
@@ -116,7 +116,6 @@ public class Receiver {
       }
     };
     try {
-      System.out.println("luqman jancok");
       tag = connector.getChannel().basicConsume(queueName, true, consumer);
     } catch (IOException e) {
       e.printStackTrace();

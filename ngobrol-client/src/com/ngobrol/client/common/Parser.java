@@ -132,6 +132,16 @@ public class Parser {
     return "";
   }
 
+  public static String getGroupNameTo(String json) {
+    try {
+      JSONObject jsonObject = (JSONObject) jsonParser.parse(json);
+      return (String) jsonObject.get("group_name_to");
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
+    return "";
+  }
+
   public static String getUsernameAdder(String json) {
     try {
       JSONObject jsonObject = (JSONObject) jsonParser.parse(json);
