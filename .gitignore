@@ -5,3 +5,6 @@ ngobrol-server/lib
 ngobrol-client/out
 ngobrol-client/.idea
 ngobrol-client/lib
+
+test/
+test-client/
