@@ -19,11 +19,15 @@ import java.util.Scanner;
  */
 public class Main {
   public static void main(String[] args) {
-    RabbitConnector connector = new RabbitConnector("192.168.43.24");
-    User user = null;
+    Scanner scanner = new Scanner(System.in);
+    System.out.println("Masukan host server RabbitMQ");
+    String host = scanner.nextLine();
+    RabbitConnector connector = null;
 
     try {
-      Scanner scanner = new Scanner(System.in);
+      connector = new RabbitConnector(host);
+      User user = null;
+
       UserService us = new UserService(connector);
       FriendService fs = new FriendService(connector);
       GroupService gs = new GroupService(connector);
